@@ -1209,7 +1209,7 @@ function modtools() {
 			var link = 'http://www.reddit.com/user/' + author,
 				title = 'Overview for ' + author;
 			
-			TBUtils.postLink(link, title, 'al_dev', function (successful, submission) {
+			TBUtils.postLink(link, title, 'reportthespammers', function (successful, submission) {
 			    if (!successful) {
 			        rtsLink.innerHTML = '<span class="error" style="font-size:x-small">an error occured</span>';
 			    }
