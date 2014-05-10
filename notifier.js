@@ -650,6 +650,9 @@ function tbnoti() {
         var lastchecked = TBUtils.setting('Notifier', 'lastchecked', -1),
             author = '',
             body_html = '';
+
+        // Update now.
+        now = new Date().getTime();
             
 
         // Update counters.
