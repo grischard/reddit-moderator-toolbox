@@ -141,7 +141,7 @@ function domaintagger() {
                     </div>\
                     <div class="dtagger-popup-content">\
                         <p>\
-                            <input type="text" class="domain-name" value="' + domain + '" subreddit="' + subreddit + '"/>\
+                            <input type="text" class="domain-name" value="' + TBUtils.htmlEncode(domain) + '" subreddit="' + subreddit + '"/>\
                             <select class="domain-color">\
                                 <option value="' + GREEN + '">green</option><option value="' + YELLOW + '">yellow</option>\
                                 <option value="' + RED + '">red</option><option value="' + BLACK + '">black</option><option value="none">none</option>\

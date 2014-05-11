@@ -375,7 +375,7 @@ function usernotes() {
                     </tr>\
                     </tbody></table>\
                     <span>\
-                        <input type="text" placeholder="something about the user..." class="utagger-user-note" data-link="' + link + '" data-subreddit="' + subreddit + '" data-user="' + user + '">\
+                        <input type="text" placeholder="something about the user..." class="utagger-user-note" data-link="' + TBUtils.htmlEncode(link) + '" data-subreddit="' + subreddit + '" data-user="' + user + '">\
                         <br><label><input type="checkbox" class="utagger-include-link" checked /> include link</label>\
                     </span>\
                 </div>\
@@ -423,9 +423,9 @@ function usernotes() {
                         typeSpan = '<span style="color: ' + info.color + ';">[' + TBUtils.htmlEncode(info.name) + ']</span> ';
                     }
                     
-                    popup.find('table.utagger-notes').append('<tr><td class="utagger-notes-td1">' + this.mod + ' <br> <span class="utagger-date" id="utagger-date-' + i + '">' + new Date(this.time).toLocaleString() + '</span></td><td lass="utagger-notes-td2">' + typeSpan + this.note + '</td><td class="utagger-notes-td3"><img class="utagger-remove-note" noteid="' + this.time + '" src="data:image/png;base64,' + TBUtils.iconclose + '" /></td></tr>');
+                    popup.find('table.utagger-notes').append('<tr><td class="utagger-notes-td1">' + TBUtils.htmlEncode(this.mod) + ' <br> <span class="utagger-date" id="utagger-date-' + i + '">' + new Date(this.time).toLocaleString() + '</span></td><td lass="utagger-notes-td2">' + typeSpan + TBUtils.htmlEncode(this.note) + '</td><td class="utagger-notes-td3"><img class="utagger-remove-note" noteid="' + TBUtils.htmlEncode(this.time) + '" src="data:image/png;base64,' + TBUtils.iconclose + '" /></td></tr>');
                     if (this.link) {
-                        popup.find('#utagger-date-' + i).wrap('<a href="' + unsquashPermalink(subreddit, this.link) + '">');
+                        popup.find('#utagger-date-' + i).wrap('<a href="' + TBUtils.htmlEncode(unsquashPermalink(subreddit, this.link)) + '">');
                     }
                     i++;
                 });
