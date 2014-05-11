@@ -21,8 +21,8 @@ function main() {
         
     // Public variables
     TBUtils.version = 5;  //don't think we need this anymore.
-    TBUtils.toolboxVersion = '2.0.1';
-    TBUtils.shortVersion = 201; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '2.0.2';
+    TBUtils.shortVersion = 202; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.configSchema = 1,
     TBUtils.notesSchema = 4,
     TBUtils.minNotesSchema = 0,
