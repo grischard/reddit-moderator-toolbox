@@ -28,8 +28,8 @@
         
     // Public variables
     //TBUtils.version = 5;  // NIU
-    TBUtils.toolboxVersion = '2.1.1' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 211; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '2.1.2' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 212; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.configSchema = 1,
     TBUtils.notesSchema = 4,
     TBUtils.minNotesSchema = 0,
