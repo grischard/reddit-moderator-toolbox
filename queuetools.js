@@ -96,8 +96,19 @@
         // Get rid of promoted links & thing rankings
         $('#siteTable_promoted,#siteTable_organic,.rank').remove();
 
-        //remove stuff we cant moderate.
-        $('.thing .report-button').parents('.thing').remove();
+        // remove stuff we can't moderate.
+        TBUtils.getModSubs(function () {
+            $('.thing .subreddit').each(function () {
+                // Just to be safe.
+                var sub = $(this).text().replace('/r/', '').replace('/', '');
+
+
+                if ($.inArray(sub, TBUtils.mySubs) === -1) {
+                    $(this).parents('.thing').remove();
+                }
+            });
+        });
+
         $('.modtools-on').parent().remove();
 
         // Make visible any collapsed things (stuff below /prefs/ threshold)

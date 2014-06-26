@@ -86,6 +86,7 @@
     // Module settings.
     var mmpEnabled = TBUtils.getSetting('ModMailPro', 'enabled', true),
         mbEnabled = TBUtils.getSetting('ModButton', 'enabled', true),
+        syntaxHighlighterEnabled = TBUtils.getSetting('syntaxHighlighter', 'enabled', true),
         rrEnabled = TBUtils.getSetting('RemovalReasons', 'enabled', true),
         qtEnabled = TBUtils.getSetting('QueueTools', 'enabled', true),
         notesEnabled = TBUtils.getSetting('UserNotes', 'enabled', true),
@@ -442,6 +443,9 @@
                 <label><input type="checkbox" id="banlistEnabled" ' + ((banlistEnabled) ? "checked" : "") + '> Enable Ban List Module</label>\
             </p>\
             <p>\
+                <label><input type="checkbox" id="syntaxHighlighterEnabled" ' + ((syntaxHighlighterEnabled) ? "checked" : "") + '> Enable Syntax Highlighter Module</label>\
+            </p>\
+            <p>\
                 <label><input type="checkbox" id="stattitEnabled" ' + ((stattitEnabled) ? "checked" : "") + '> Enable Reddit Metrics Tab</label>\
             </p>\
             <p>\
@@ -668,6 +672,7 @@
         TBUtils.setSetting('TBConfig', 'enabled', $("#configEnabled").prop('checked'));
         TBUtils.setSetting('CommentsMod', 'enabled', $("#commentsEnabled").prop('checked'));
         TBUtils.setSetting('BanList', 'enabled', $("#banlistEnabled").prop('checked'));
+        TBUtils.setSetting('syntaxHighlighter', 'enabled', $("#syntaxHighlighterEnabled").prop('checked'));
         TBUtils.setSetting('StattitTab', 'enabled', $("#stattitEnabled").prop('checked'));
         TBUtils.setSetting('ModMatrix', 'enabled', $("#modmatrixEnabled").prop('checked'));
         TBUtils.setSetting('Notifier', 'enabled', $("#notifierEnabled").prop('checked'));

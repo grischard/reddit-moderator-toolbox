@@ -28,8 +28,8 @@
         
     // Public variables
     //TBUtils.version = 5;  // NIU
-    TBUtils.toolboxVersion = '2.1.2' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 212; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '2.1.3' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 213; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.configSchema = 1,
     TBUtils.notesSchema = 4,
     TBUtils.minNotesSchema = 0,
@@ -160,20 +160,10 @@
         // Start: version changes.
         $.log('Running '+ TBUtils.toolboxVersion +' changes');
 
-        localStorage['Toolbox.Utils.seennotes'] = JSON.stringify([]); //bug fix.
-        // 2.1.1 TODO: convert Notifier.shortcuts2 to Notifier.shortcuts
-        var highlighted = localStorage['Toolbox.CommentsMod.highlighted'];  //bug fix.
-        $.log(highlighted);
-        if (highlighted === undefined || highlighted === 'undefined' || highlighted === "\"undefined\"") {
-            localStorage['Toolbox.CommentsMod.highlighted'] = JSON.stringify('');
-        }
+        // 2.1.3 TODO: convert Notifier.shortcuts2 to Notifier.shortcuts
 
-        highlighted = JSON.stringify(localStorage['Toolbox.CommentsMod.highlighted']);
-        if (highlighted.substr(highlighted.length - 1) === ',') {
-            highlighted = highlighted.slice(0, -1);
-            localStorage['Toolbox.CommentsMod.highlighted'] = JSON.stringify(highlighted);
-        }
-        localStorage.removeItem('Toolbox.CommentsMod.enabled');
+        // in case people turned it off.
+        localStorage['Toolbox.QueueTools.enabled'] = JSON.stringify(true);
 
         // End: version changes.
 
