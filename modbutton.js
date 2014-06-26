@@ -260,10 +260,17 @@
             $popup.find('select.mod-action option[data-api=friend][data-action=moderator]').attr('selected', 'selected');
             $popup.find('.ban-note').hide();
             $popup.find('.action-sub:checkbox:checked').removeAttr('checked');
+            $popup.find('textarea.ban-message').hide();
+			$popup.find('.ban-duration').hide();
+            $popup.find('.ban-span-include-time').hide();
+				$banIncludeTime = $popup.find('.ban-span-include-time');
         } else if (location.pathname.match(/\/about\/(?:contributors)\/?/)) {
             $popup.find('select.mod-action option[data-api=friend][data-action=contributor]').attr('selected', 'selected');
             $popup.find('.ban-note').hide();
             $popup.find('.action-sub:checkbox:checked').removeAttr('checked');
+            $popup.find('textarea.ban-message').hide();
+			$popup.find('.ban-duration').hide();
+            $popup.find('.ban-span-include-time').hide();
         }
  
         // render the saved subs lists
