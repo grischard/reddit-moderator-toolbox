@@ -28,8 +28,8 @@
         
     // Public variables
     //TBUtils.version = 5;  // NIU
-    TBUtils.toolboxVersion = '2.1.3' + ((betaRelease) ? ' (beta)' : '');
-    TBUtils.shortVersion = 213; //don't forget to change this one!  This is used for the 'new version' notification.
+    TBUtils.toolboxVersion = '2.1.4' + ((betaRelease) ? ' (beta)' : '');
+    TBUtils.shortVersion = 214; //don't forget to change this one!  This is used for the 'new version' notification.
     TBUtils.configSchema = 1,
     TBUtils.notesSchema = 4,
     TBUtils.minNotesSchema = 0,
@@ -564,7 +564,27 @@
             }
         }
     };
+    
+	TBUtils.humaniseDays = function  (diff) {
+	  var str = '';
+	  var values = {
+		' year': 365, 
+		' month': 30,
+		' week': 7,
+		' day': 1
+	  };
 
+	  for (var x in values) {
+		var amount = Math.floor(diff / values[x]);
+
+		if (amount >= 1) {
+		   str += amount + x + (amount > 1 ? 's' : '') + ' ';
+		   diff -= amount * values[x];
+		}
+	  }
+	  str = str.slice(0, - 1);
+	  return str
+	}
     // Because normal .sort() is case sensitive.
     TBUtils.saneSort = function (arr) {
         return arr.sort(function (a, b) {
