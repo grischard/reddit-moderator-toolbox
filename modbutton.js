@@ -168,7 +168,7 @@
                         </div>\
                        <div class="ban-note-container"><input id="ban-note" class="ban-note" type="text" placeholder="(ban note)" maxlength="300" value="' + BANREASON + '"></input><br>\
 						<textarea name="ban-message" class="ban-message" placeholder="(ban message to user)" ></textarea><br>\
-						<input type="number" min="1" max="999" name="ban-duration"  class="ban-duration" placeholder="time (days)"> <span class="ban-span-include-time">Include in message <input type="checkbox" name="ban-include-time" class="ban-include-time" value="ban-include-time"></span>\
+						<input type="number" min="1" max="999" name="ban-duration"  class="ban-duration" placeholder="time (days)"> <span class="ban-span-include-time"><input type="checkbox" name="ban-include-time" class="ban-include-time" value="ban-include-time"> Include in message </span>\
                         ',
                     footer: '\
                         <span class="status error left"></span>\
