@@ -76,7 +76,8 @@ function usernotes() {
             if (succ) {
                 $.log("Success!");
                 run();
-            } else {
+            }
+            else {
                 $.log("Failure: "+err);
             }
         });
@@ -339,7 +340,7 @@ function usernotes() {
     }
     
     var $body = $('body');
-
+    
     $body.on('click', '#add-user-tag', function (e) {
         var thing = $(e.target).closest('.thing .entry'),
             info = TBUtils.getThingInfo(thing),
@@ -347,72 +348,75 @@ function usernotes() {
             user = info.user,
             link = squashPermalink(info.permalink);
 
-        // Make box & add subreddit radio buttons
-        // var popup = $(
-        //     '<div class="utagger-popup">\
-        //         <div class="utagger-popup-header">\
-        //             User Notes - <a href="http://reddit.com/u/' + user + '" id="utagger-user-link">/u/' + user + '</a>\
-        //             <span class="close right"><a href="javascript:;">✕</a></span>\
-        //         </div>\
-        //         <div class="utagger-popup-content">\
-        //             <table class="utagger-notes"><tbody><tr>\
-        //                 <td class="utagger-notes-td1">Author</td>\
-        //                 <td class="utagger-notes-td2">Note</td>\
-        //                 <td class="utagger-notes-td3"></td>\
-        //             </tr></tbody></table>\
-        //             <table class="utagger-type"><tbody>\
-        //             <tr>\
-        //             <td><input type="radio" name="type-group" class="utagger-type-input" id="utagger-type-none" value="none" checked/><label for="utagger-type-none" style="color: #369;">None</label></td>\
-        //             </tr>\
-        //             </tbody></table>\
-        //             <span>\
-        //                 <input type="text" placeholder="something about the user..." class="utagger-user-note" id="utagger-user-note-input" data-link="' + link + '" data-subreddit="' + subreddit + '" data-user="' + user + '">\
-        //                 <br><label><input type="checkbox" class="utagger-include-link" checked /> include link</label>\
-        //             </span>\
-        //         </div>\
-        //         <div class="utagger-popup-footer">\
-        //                 <input type="button" class="utagger-save-user" id="utagger-save-user" value="save for /r/' + subreddit + '">\
-        //         </div>\
-        //         </div>'
-        // )
-        var popup = TB.ui.popup(
-            'User Notes - <a href="http://reddit.com/u/' + user + '" id="utagger-user-link">/u/' + user + '</a>',
+        // Create popup content
+        var $popup = TB.ui.popup(
+            $('<span>').append(
+                $('<label>', {text:"User Notes - "})).append(
+                $('<a>', {href:'http://reddit.com/u/' + user, id:'utagger-user-link', text:'/u/' + user})),
             [
                 {
-                    content: '\
-                        <table class="utagger-notes"><tbody><tr>\
-                            <td class="utagger-notes-td1">Author</td>\
-                            <td class="utagger-notes-td2">Note</td>\
-                            <td class="utagger-notes-td3"></td>\
-                        </tr></tbody></table>\
-                        <table class="utagger-type"><tbody><tr>\
-                            <td><input type="radio" name="type-group" class="utagger-type-input" id="utagger-type-none" value="none" checked/><label for="utagger-type-none" style="color: #369;">None</label></td>\
-                        </tr></tbody></table>\
-                        <span>\
-                            <input type="text" placeholder="something about the user..." class="utagger-user-note" id="utagger-user-note-input" data-link="' + link + '" data-subreddit="' + subreddit + '" data-user="' + user + '">\
-                            <br><label><input type="checkbox" class="utagger-include-link" checked /> include link</label>\
-                        </span>',
-                    footer: '\
-                        <span class="tb-popup-error" style="display:none"/>\
-                        <input type="button" class="utagger-save-user" id="utagger-save-user" value="save for /r/' + subreddit + '" />'
+                    content:
+                        $('<div>').append(
+                            $('<table>', {class:'utagger-notes'}).append(
+                                $('<tbody>').append(
+                                    $('<tr>').append(
+                                        $('<td>', {class:'utagger-notes-td1', text:"Author"})).append(
+                                        $('<td>', {class:'utagger-notes-td2', text:"Note"})).append(
+                                        $('<td>', {class:'utagger-notes-td3'})
+                                    )
+                                )
+                            )
+                        ).append(
+                            $('<table>', {class:'utagger-type'}).append(
+                                $('<tbody>').append(
+                                    $('<tr>').append(
+                                        $('<td>').append(
+                                            $('<input>', {type:'radio', name:'type-group', class:'utagger-type-input', id:'utagger-type-none', value:'none'})).append(
+                                            $('<label>', {for:'utagger-type-none', text:"None", style:'color: #369;'})
+                                        )
+                                    )
+                                )
+                            )
+                        ).append(
+                            $('<span>').append(
+                                $('<input>', {type:'text', class:'utagger-user-note', id:'utagger-user-note-input', placeholder:"something about the user...", 'data-link':link, 'data-subreddit':subreddit, 'data-user':user})).append(
+                                $('<br>')).append(
+                                $('<input>', {type:'checkbox', class:'utagger-include-link', id:'utagger-include-link-input'})).append(
+                                $('<label>', {for:'utagger-include-link-input', class:'utagger-include-link', text:"include link"})
+                            )
+                        ),
+                    footer:
+                        $('<span>').append(
+                            $('<span>', {class:'tb-popup-error', style:'display:none'})).append(
+                            $('<input>', {type:'button', class:'utagger-save-user', id:'utagger-save-user', value:"save for /r/" + subreddit})
+                        )
                 }
             ],
             '', // meta to inject in popup header; just a placeholder
-            'utagger-popup' // class
-        )
-            .appendTo('body')
+            '',	// class
+            'utagger-popup' // id
+        );
+        
+        // Add popup to page
+        $popup.appendTo('body')
             .css({
                 left: e.pageX - 50,
                 top: e.pageY - 10,
                 display: 'block'
             });
-
-        var $table = popup.find('.utagger-type tr:first');
+        
+        var $table = $popup.find('.utagger-type tr:first');
         $(TBUtils.warningType).each(function () {
-            var info = TBUtils.getTypeInfo(this);
-            $table.append('<td><input type="radio" name="type-group" class="utagger-type-input" id="utagger-type-' + this + '" value="' + this + '"><label for="utagger-type-' + this + '" style="color: ' + info.color + ';">' + info.text + '</label></td>');
+            var info = TBUtils.getTypeInfo(this),
+                input_id = 'utagger-type-' + this;
+            $table.append(
+                $('<td>').append(
+                    $('<input>', {type:'radio', name:'type-group', id:input_id, class:'utagger-type-input', value:this})).append(
+                    $('<label>', {for:input_id, style:'color:' + info.color, text:info.text})
+                )
+            );
         });
-
+        
         TBUtils.readFromWiki(subreddit, 'usernotes', true, function (resp) {
             if (!resp || resp === TBUtils.WIKI_PAGE_UNKNOWN || resp === TBUtils.NO_WIKI_PAGE || resp.length < 1) {
                 TBUtils.noNotes.push(subreddit);
@@ -426,11 +430,13 @@ function usernotes() {
             var u = getUser(resp.users, user);
             // User has notes
             if(u !== undefined) {
-                popup.find('#utagger-type-' + u.notes[0].type).prop('checked',true);
+                $popup.find('#utagger-type-' + u.notes[0].type).prop('checked',true);
 
                 var i = 0;
                 $(u.notes).each(function () {
-                    if (!this.type) this.type = 'none';
+                    if (!this.type) {
+                        this.type = 'none';
+                    }
 
                     var info = TBUtils.getTypeInfo(this.type);
                     var typeSpan = '';
@@ -439,33 +445,33 @@ function usernotes() {
                         typeSpan = '<span style="color: ' + info.color + ';">[' + TBUtils.htmlEncode(info.name) + ']</span> ';
                     }
 
-                    popup.find('table.utagger-notes').append('<tr><td class="utagger-notes-td1">' + this.mod + ' <br> <span class="utagger-date" id="utagger-date-' + i + '">' +
+                    $popup.find('table.utagger-notes').append('<tr><td class="utagger-notes-td1">' + this.mod + ' <br> <span class="utagger-date" id="utagger-date-' + i + '">' +
                         new Date(this.time).toLocaleString() + '</span></td><td lass="utagger-notes-td2">' + typeSpan + this.note +
                         '</td><td class="utagger-notes-td3"><img class="utagger-remove-note" noteid="' + this.time + '" src="data:image/png;base64,' + TBui.iconClose + '" /></td></tr>');
                     if (this.link) {
-                        popup.find('#utagger-date-' + i).wrap('<a href="' + unsquashPermalink(subreddit, this.link) + '">');
+                        $popup.find('#utagger-date-' + i).wrap('<a href="' + unsquashPermalink(subreddit, this.link) + '">');
                     }
                     i++;
                 });
             }
             // No notes on user
             else {
-                popup.find("#utagger-user-note-input").focus();
+                $popup.find("#utagger-user-note-input").focus();
             }
         });
     });
     
     // 'cancel' button clicked
-    $body.on('click', '.utagger-popup .close', function () {
-        $(this).parents('.utagger-popup').remove();
+    $body.on('click', '#utagger-popup .close', function () {
+        $(this).parents('#utagger-popup').remove();
     });
     
-    $body.on('click', '.utagger-save-user, .utagger-remove-note', function (e) {
-        var $popup = $(this).closest('.utagger-popup'),
+    $body.on('click', '#utagger-save-user, .utagger-remove-note', function (e) {
+        var $popup = $(this).closest('#utagger-popup'),
             $unote = $popup.find('.utagger-user-note'),
             subreddit = $unote.attr('data-subreddit'),
             user = $unote.attr('data-user'),
-            noteid = $(e.target).attr('noteid'),
+            noteId = $(e.target).attr('noteid'),
             noteText = $unote.val(),
             deleteNote = (e.target.className == 'utagger-remove-note'),
             type = $popup.find('.utagger-type-input:checked').val(),
@@ -491,8 +497,9 @@ function usernotes() {
                 
                 return;
             }
-            else if ((!user || !subreddit)) {
+            if ((!user || !subreddit)) {
                 //We seem to have an problem beyond the control of the user
+                $.log("Bad problem: user="+user+", subreddit="+subreddit);
                 return;
             }
         }
@@ -542,34 +549,37 @@ function usernotes() {
 
             if (notes) {
                 var u = getUser(notes.users, user);
+                // Existing user
                 if(u !== undefined) {
-                    // Delete.
+                    // Delete
                     if (deleteNote) {
                         $(u.notes).each(function (idx) {
 
-                            if (this.time == noteid) {
+                            if (this.time == noteId) {
                                 u.notes.splice(idx, 1);
                             }
                         });
-
+                        
                         if (u.notes.length < 1) {
                             delete notes.users[user];
                         }
 
-                        postToWiki(subreddit, notes, 'delete note '+noteid+' on user '+user);
-                    // Add.
-                    } else {
+                        postToWiki(subreddit, notes, 'delete note '+noteId+' on user '+user);
+                    }
+                    // Add
+                    else {
                         u.notes.unshift(note);
                         postToWiki(subreddit, notes, 'create new note on user '+user);
                     }
-
-                // Adding a note for previously unknown user
-                } else if (u === undefined && !deleteNote) {
+                }
+                // New user
+                else if (u === undefined && !deleteNote) {
                     notes.users[user] = userNotes;
                     postToWiki(subreddit, notes, 'create new note on new user '+user);
                 }
-            } else {
-                // create new notes object
+            }
+            // Create new notes object
+            else {
                 notes = noteSkel;
                 notes.users[user] = userNotes;
                 postToWiki(subreddit, notes, 'create new notes object, add new note on user '+user);
@@ -577,15 +587,14 @@ function usernotes() {
         });
     });
     
-    $body.on('click', '.utagger-cancel-user', function () {
-        var popup = $(this).closest('.utagger-popup');
+    /*$body.on('click', '.utagger-cancel-user', function () {
+        var popup = $(this).closest('#utagger-popup');
         $(popup).remove();
-    });
+    });*/
     
-    $body.on('keyup', '.utagger-user-note', function (event) {
+    $body.on('keyup', '#utagger-user-note-input', function (event) {
         if(event.keyCode == 13) {
-            $.log("Enter pressed!", true);
-            var popup = $(this).closest('.utagger-popup');
+            var popup = $(this).closest('#utagger-popup');
             popup.find('.utagger-save-user').click();
         }
     });

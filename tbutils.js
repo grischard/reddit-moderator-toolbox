@@ -675,13 +675,18 @@ function initwrapper() {
     TBUtils.postToWiki = function postToWiki(page, subreddit, data, reason, isJSON, updateAM, callback) {
         if (reason) {
             reason = '"'+reason+'" via toolbox';
-        } else {
+        }
+        else {
             reason = 'updated via toolbox';
         }
 
         if (isJSON) {
             // Not indenting saves precious bytes.
-            data = JSON.stringify(data, undefined, TBUtils.debugMode ? 2 : undefined);
+            // Adding padding makes user notes fail on larger subreddits, so stahp it.
+            // Use Notepad++ with the JSON viewer plugin if you want to format test data.
+            //
+            // Friends don't let friends indent space-constrained data.
+            data = JSON.stringify(data/*, undefined, TBUtils.debugMode ? 2 : undefined*/);
         }
         
         $.log("Posting /r/" + subreddit + "/api/wiki/edit/"+page);
